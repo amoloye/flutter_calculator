@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'extended.dart';
 
 class Calculator extends StatefulWidget {
+
 
 
   @override
@@ -130,7 +132,7 @@ class _CalculatorState extends State<Calculator> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 RaisedButton(
-                  padding: EdgeInsets.fromLTRB(34, 20, 128, 20),
+                  padding: EdgeInsets.all(20.0),
                   onPressed:(){
                     calculation('0');
                     //button function
@@ -144,21 +146,41 @@ class _CalculatorState extends State<Calculator> {
                   ),
                   color:Colors.grey[850],
                 ),
+
+                //my new navigation button
+                RaisedButton(
+                 padding: EdgeInsets.all(20.0),
+                  onPressed:() {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return ExtendCalc();
+                        //button function
+                      }),
+                    );
+                  },
+                  shape: StadiumBorder(),
+                  child: Icon(Icons.arrow_forward),
+                  color:Colors.green,
+                  ),
+
                 calcbutton('.',Colors.grey, Colors.white),
                 calcbutton('=',Colors.amber, Colors.white),
 
               ],
-            ),
+    ),
 
             SizedBox(height:10,),
 
-               Row(
+              /* Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   convbutton('m->km', Colors.tealAccent, Colors.black),
                   convbutton('km->m', Colors.tealAccent, Colors.black)
                 ],
               ),
+
+               */
         ]
         ),
       ),
