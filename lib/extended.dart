@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ExtendCalc extends StatefulWidget {
   const ExtendCalc({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class _ExtendCalcState extends State<ExtendCalc> {
     return Container(
       child: RaisedButton(
         onPressed: (){
+          _loadResult();
           //TODO add function for button press
           calculation(btntxt);
 
@@ -39,6 +41,7 @@ class _ExtendCalcState extends State<ExtendCalc> {
     return Container(
       child:RaisedButton(
         onPressed:(){
+          _loadResult();
           calculation(btntxt);
           //button function
         },
@@ -53,6 +56,23 @@ class _ExtendCalcState extends State<ExtendCalc> {
         padding: EdgeInsets.all(20),
       ),
     );
+  }
+
+  //init sharedPreference state
+  @override
+  void initState() {
+    _loadResult();
+    super.initState();
+  }
+
+
+  //loading counter for sharedPreference
+  void _loadResult() async{
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      finalResult = (prefs.getString('result') ?? 0);
+    });
+
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'extended.dart';
 
 class Calculator extends StatefulWidget {
@@ -10,14 +11,17 @@ class Calculator extends StatefulWidget {
 }
 
 class _CalculatorState extends State<Calculator> {
+  //String result = " ";
   dynamic displaytxt = 20;
+  String btntxt = " ";
 
 //Button Widget
 
-  Widget calcbutton(String btntxt,Color btncolor, Color txtcolor){
+  Widget calcbutton(btntxt,Color btncolor, Color txtcolor){
     return Container(
       child: RaisedButton(
         onPressed: (){
+          _loadResult();
           //TODO add function for button press
           calculation(btntxt);
 
@@ -36,11 +40,16 @@ class _CalculatorState extends State<Calculator> {
     );
   }
 
-  Widget convbutton(String btntxt,Color btncolor, Color txtcolor){
+  Widget convbutton(btntxt,Color btncolor, Color txtcolor){
+
     return Container(
+
     child:RaisedButton(
       onPressed:(){
+        _loadResult();
         calculation(btntxt);
+
+
         //button function
       },
       shape: StadiumBorder(),
@@ -54,7 +63,31 @@ class _CalculatorState extends State<Calculator> {
       padding: EdgeInsets.all(20),
     ),
     );
+
   }
+
+  //init sharedPreference state
+  @override
+  void initState() {
+    _loadResult();
+    super.initState();
+  }
+
+
+  //loading counter for sharedPreference
+void _loadResult() async{
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      finalResult = (prefs.getString('result') ?? 0);
+    });
+
+}
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,6 +167,7 @@ class _CalculatorState extends State<Calculator> {
                 RaisedButton(
                   padding: EdgeInsets.all(20.0),
                   onPressed:(){
+                    _loadResult();
                     calculation('0');
                     //button function
                   },
@@ -323,3 +357,4 @@ class _CalculatorState extends State<Calculator> {
     return result;
   }
 }
+

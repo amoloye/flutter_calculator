@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'home_screen.dart';
-import 'extended.dart';
+import 'package:flutter/services.dart';
 
-void main(){
+import 'home_screen.dart';
+
+
+Future main() async{
   runApp(CalculatorApp());
 }
 
