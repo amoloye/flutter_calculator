@@ -11,7 +11,7 @@ class Calculator extends StatefulWidget {
 }
 
 class _CalculatorState extends State<Calculator> {
-  //String result = " ";
+  String view = " ";
   dynamic displaytxt = 20;
   String btntxt = " ";
 
@@ -45,8 +45,8 @@ class _CalculatorState extends State<Calculator> {
     return Container(
 
     child:RaisedButton(
-      onPressed:(){
-        _loadResult();
+      onPressed:()  {
+       _loadResult();
         calculation(btntxt);
 
 
@@ -73,12 +73,18 @@ class _CalculatorState extends State<Calculator> {
     super.initState();
   }
 
+  //setPreference
+  setResult() async{
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString(finalResult, " ");
+  }
 
-  //loading counter for sharedPreference
+
+  //loading get sharedPreference
 void _loadResult() async{
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      finalResult = (prefs.getString('result') ?? 0);
+      finalResult = (prefs.getString(finalResult) ?? 0);
     });
 
 }
